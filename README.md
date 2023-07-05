@@ -14,20 +14,20 @@
 ```
 sudo unshare -pf -n --mount-proc bash
 ```
-![sudo unshare -pf -n --mount-proc bash]()
+![sudo unshare -pf -n --mount-proc bash](https://github.com/Mihon99/Containerization-Seminar_1/blob/main/source/1.PNG)
 
 
 * В параллельном терминале смотрим, что произошло (наглядно):
 ```
 ps -afx
 ```
-![ps -afx]()
+![ps -afx](https://github.com/Mihon99/Containerization-Seminar_1/blob/main/source/2.PNG)
 
 Наблюдаем несколько родительских процессов, которые породили одинаковые процессы Bash. Заметим, что PID у нового процесса 4400.
-![ps -afx]()
+![ps -afx](https://github.com/Mihon99/Containerization-Seminar_1/blob/main/source/3.PNG)
 
 Для проверки и наглядности смотрим той же командой ps -afx в изолированном терминале
-![ps -afx]()
+![ps -afx](https://github.com/Mihon99/Containerization-Seminar_1/blob/main/source/4.PNG)
 Здесь мы сможем увидеть, что изолированная оболчка видит всего два процесса (и то, второй процесс сразу же, после выполнения команды, исчезнет). При этом PID процессов начинается с 1.
 
 
@@ -35,12 +35,12 @@ ps -afx
 ```
 ping ya.ru
 ```
- ![ps -afx]()
+ ![ps -afx](https://github.com/Mihon99/Containerization-Seminar_1/blob/main/source/5.PNG)
  Наблюдаем, что пинг до указанного сайта не может быть осуществлен, так как сеть в этом пронстранстве имен имеется только локальная, т.е. localhost.
 
 
 А теперь, ту же команду запустим из параллельного терминала (котоый не изолирован).
-![ps -afx]()
+![ps -afx](https://github.com/Mihon99/Containerization-Seminar_1/blob/main/source/6.PNG)
 Видим, что пакеты до сайта уходят нормально и ответ от сервера принимается.
 
 
@@ -48,7 +48,7 @@ ping ya.ru
 ```
 hostname
 ```
-![ps -afx]()
+![ps -afx](https://github.com/Mihon99/Containerization-Seminar_1/blob/main/source/7.PNG)
 Как мы можем заметить - хоcт и там и там одинаков. А теперь, в изолированном терминале выполняем команду:
 ```
 sudo unshare -u bash
@@ -61,7 +61,7 @@ sudo unshare -u bash
 hostname geekbrains
 ```
 Эта команда никак не затронула хост основной системы. Можем проверить это, выполнив hostname в первом терминале и увидев, что имя хоста там не изменилось.
-![ps -afx]()
+![ps -afx](https://github.com/Mihon99/Containerization-Seminar_1/blob/main/source/8.PNG)
 
 
 Этими манипуляциями мы доказали, что научились запускать процессы в разных namespace с возможностью опционально изолировать нужные нам направления.
